@@ -3,9 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Document</title>
+  <style>
+    p {color: red;}
+    .a {color: #5858ff;}
+    .a:hover {opacity: .5;}
+  </style>
 </head>
 <body>
-  page
+  <p>헬로월드</p>
+  <p class="a">밤양갱</p>
+  <p class="b">초코빵</p>
+  <p class="c">소보로빵</p>
+  <p class="d">모카빵</p>
+  <p style="color: cyan">소라빵</p>
+  <script>
+    console.log('하이')
+    document.getElementsByClassName('c')[0].style.color = 'gray';
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>
