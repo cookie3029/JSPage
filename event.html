@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {display: flex; flex-direction: column; gap: 24px;}
+    div {margin: 8px 0; padding: 8px;border: 1px solid #ccc;border-radius: 4px;}
+  </style>
+</head>
+<body>
+  <div>
+    <h3>Click Event</h3>
+    <button id="myButton">Click Me</button>
+  </div>
+
+  <div>
+    <h3>Mouse Event</h3>
+    <div id="myDiv" style="width: 200px; height: 40px; background-color: lightblue;">Mouse over me</div>
+  </div>
+
+  <div>
+    <h3>Keyboard Event</h3>
+    <input type="text" id="myInput" placeholder="Press Enter">
+  </div>
+
+  <script>
+    // 클릭
+    document.getElementById('myButton').addEventListener('click', function() {
+      console.log('click');
+    });
+
+    // 박스 안에 마우스가 들어왔을 때
+    document.getElementById('myDiv').addEventListener('mouseover', function() {
+      this.style.backgroundColor = 'black';
+      this.style.color = 'white';
+      console.log('mouseover');
+    });
+
+    // 박스 안에 마우스가 나갔을 때 컬러 변경
+    document.getElementById('myDiv').addEventListener('mouseout', function() {
+      this.style.backgroundColor = 'white';
+      this.style.color = 'black';
+    });
+
+    // 커서가 인풋에 활성화 되어있을 때 엔터를 입력하면 발생하는 이벤트
+    document.getElementById('myInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        console.log('Enter');
+      }
+    });
+  </script>
+</body>
+</html>
