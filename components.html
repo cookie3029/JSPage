@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>웹 컴포넌트</h1>
+  <div>
+    <p>1. 커스텀 엘리먼트(Custom Elements)</p>
+    <component-a></component-a>
+  </div>
+  <div>
+    <p>2. 섀도우 돔(Shadow DOM)</p>
+    <p id="shadowDomId"></p>
+  </div>
+  <div>
+    <p>3. HTML 템플릿(HTML Templates)</p>
+    <p id="pasteTp" style="color: orange;"></p>
+    <template id="tp">HTML 템플릿 입니다.</template>
+  </div>
+  <script>
+    // [3]
+    let tp = document.getElementById('tp');
+    let pasteTp = document.getElementById('pasteTp');
+
+    const cloneTp = tp.content.cloneNode(true);
+    pasteTp.appendChild(cloneTp);
+
+    // [2] 
+    let shadow = document.getElementById('shadowDomId');
+    shadow.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `<p style='color: blue'>섀도우 돔</p>`;
+
+    // [1] 커스텀 엘리먼트
+    class ComponentA extends HTMLElement {
+      connectedCallback() {
+        this.setAttribute('id', 'a');
+        this.innerHTML = `
+          <p style='color: red'>커스텀 엘리먼트의 A 컴포넌트</p>
+        `;
+      }
+    }
+
+    customElements.define('component-a', ComponentA);
+  </script>
+</body>
+</html>
