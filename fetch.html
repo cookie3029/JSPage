@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form id="myForm">
+    <input type="text" name="textField" placeholder="Enter Text">
+    <input type="checkbox" name="checkBox">
+    <input type="radio" name="radioButton" value="Option1">Option 1
+    <input type="radio" name="radioButton" value="Option2">Option 2
+    <button type="button" id="submitForm">Submit</button>
+    <button type="button" id="resetForm">Reset</button>
+  </form>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // DOM 객체 변수 선언
+      let myForm = document.getElementById('myForm');
+      let resetForm = document.getElementById('resetForm');
+      let submitForm = document.getElementById('submitForm');
+
+      myForm.addEventListener("change", function(event) {
+        console.log("change : ", event.target);
+      })
+
+      myForm.addEventListener('input', function(event) {
+        console.log("input : ", event.target);
+      })
+
+      myForm.addEventListener('cut', function(event) {
+        console.log("cut : ", event.target);
+      })
+
+      myForm.addEventListener('copy', function(event) {
+        console.log("copy : ", event.target);
+      })
+
+      myForm.addEventListener('paste', function(event) {
+        console.log("paste : ", event.target);
+      })
+
+      myForm.addEventListener('submit', function(event) {
+        console.log("submit : ", new FormData(myForm));
+        event.preventDefault();
+      })
+
+      resetForm.addEventListener('click', function(event) {
+        myForm.reset();
+      })
+
+      // 폼 데이터 전송
+      submitForm.addEventListener('click', function(event) {
+        let formData = new FormData(myForm);
+        let jsonObject = {};
+
+        for (const [key, value] of formData.entries()) {
+          jsonObject[key] = value;
+          console.log(key, value);
+        }
+
+        console.log('formData : ', formData);
+        console.log('jsonObject : ', jsonObject);
+
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(jsonObject)
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error));
+      })
+    })
+  </script>
+</body>
+</html>
