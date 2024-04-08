@@ -25,6 +25,50 @@
     <input type="text" id="myInput" placeholder="Press Enter">
   </div>
 
+  <div>
+    <h3>Focus Event</h3>
+    <input type="text" id="focusInput" placeholder="Focus here">
+  </div>
+  
+  <div>
+    <h3>Form Event</h3>
+    <form id="myForm">
+      <input type="text" name="username" placeholder="Username">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
+  <div>
+    <h3>Keyboard: keydown and keyup</h3>
+    <input type="text" id="keyboardInput" placeholder="Type something">
+  </div>
+  
+  <div>
+    <h3>Touch Event</h3>
+    <div id="myTouchArea" style="width: 200px; height: 40px; background-color: lightblue;">Touch Me</div>
+  </div>
+  
+  <div>
+    <h3>Mouse & Pointer Events</h3>
+    <div id="mousePointerDiv" style="width: 200px; height: 100px; background-color: lightblue;">Mouse over or touch me</div>
+  </div>
+  
+  <div>
+    <h3>JavaScript Animations</h3>
+    <div id="animationDiv" style="width: 100px; height: 100px; background-color: lightblue; position: relative;"></div>
+  </div>
+  
+  
+  <div>
+    <h3 id="scrollHeader" data-px="">Scroll Event</h3>
+    <p id="scrollValue">Scrolled: 0px</p>
+    <div id="myScrollDiv" style="width: 200px; height: 300px; background-color: lightblue; overflow: auto;">
+      <div style="height: 600px; background-color: #eee;">
+        Scroll me
+      </div>
+    </div>
+  </div>
+
   <script>
     // 클릭
     document.getElementById('myButton').addEventListener('click', function() {
@@ -49,6 +93,77 @@
       if (e.key === 'Enter') {
         console.log('Enter');
       }
+    });
+
+    // Focus Event
+    document.getElementById("focusInput").addEventListener("focus", function() {
+      this.style.backgroundColor = "#0000ff";
+      this.style.color = "#fff";
+    });
+
+    document.getElementById("focusInput").addEventListener("blur", function() {
+      this.style.backgroundColor = "white";
+    });
+
+    // Form Event
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var username = this.elements["username"].value;
+      console.log("Form submitted by: " + username);
+    });
+
+    // Keyboard: keydown and keyup
+    document.getElementById("keyboardInput").addEventListener("keydown", function(event) {
+      console.log("Key down: " + event.key);
+    });
+
+    document.getElementById("keyboardInput").addEventListener("keyup", function(event) {
+      console.log("Key up: " + event.key);
+    });
+
+    // Touch Event
+    document.getElementById("myTouchArea").addEventListener("touchstart", function(event) {
+      console.log("Touch started!");
+    });
+
+    document.getElementById("myTouchArea").addEventListener("touchend", function(event) {
+      console.log("Touch ended!");
+    });
+
+    // Mouse & Pointer Events
+    document.getElementById("mousePointerDiv").addEventListener("pointerover", function() {
+      this.style.backgroundColor = "lightgreen";
+      console.log("Pointer over");
+    });
+
+    document.getElementById("mousePointerDiv").addEventListener("pointerout", function() {
+      this.style.backgroundColor = "lightblue";
+      console.log("Pointer out");
+    });
+
+    // JavaScript Animations
+    let animationDiv = document.getElementById("animationDiv");
+    let position = 0;
+    let direction = 1;
+    function animate() {
+      position += direction * 2;
+      animationDiv.style.left = position + "px";
+      if (position >= 200 || position <= 0) {
+        direction *= -1;
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Scroll Event inside myScrollDiv
+    document.getElementById("myScrollDiv").addEventListener("scroll", function() {
+      let scrolled = this.scrollTop;
+      console.log("Scrolled: " + scrolled + "px");
+      
+      // Assign the scroll value to data-px attribute
+      document.getElementById("scrollHeader").setAttribute("data-px", scrolled + "px");
+      // Update the text to show scrolled value
+      document.getElementById("scrollValue").textContent = "Scrolled: " + scrolled + "px";
     });
   </script>
 </body>
